@@ -37,11 +37,10 @@ fn main() {
 		}
 		last_mouse_pos = new_mouse_pos;
 
-		let mouse_wheel = window.get_scroll_wheel().unwrap_or((0.0, 0.0)).1;
-		if mouse_wheel != 0.0 {
-			visualizer.zoom(new_mouse_pos.0 as usize, new_mouse_pos.1 as usize, mouse_wheel as f64);
+		let (_, mouse_wheel) = window.get_scroll_wheel().unwrap_or((0.0, 0.0));
+		if mouse_wheel != 0.0 {															// mouse_wheel on a physical wheel is +-12
+			visualizer.zoom(new_mouse_pos.0 as usize, new_mouse_pos.1 as usize, mouse_wheel as f64 / 12.0);
 		}
-		println!("{mouse_wheel}");
 
 		visualizer.update(julia, greyscale);		
 

@@ -1,4 +1,4 @@
-
+use rayon::prelude::*;
 
 pub struct Visualizer {
 	pub buffer: Vec<u32>,
@@ -46,21 +46,22 @@ impl Visualizer {
 	pub fn update(&mut self, fractal: fn(x: f64, y: f64, max_iterations: usize) -> f64, colorizer: fn(v: f64, max_iterations: usize) -> u32) {
 		assert!(self.buffer.len() == self.width * self.height);
 
-		for y in 0..self.height {
-			for x in 0..self.width {
-				let index = y * self.width + x;
-
-				let new_x = ((x as f64 - self.width as f64 / 2.0) / self.zoom) + self.offset.0;
-				let new_y = ((y as f64 - self.height as f64 / 2.0) / self.zoom) + self.offset.1;
-
-				let result = fractal(new_x, new_y, self.max_iterations);
-				if result as usize == self.max_iterations {
-					self.buffer[index] = 0xFFFFFFFF;
+		self.buffer
+			.par_chunks_exact_mut(self.width)
+			.enumerate()
+			.for_each(|(y, row)| {
+				for x in 0..self.width {	
+					let new_x = ((x as f64 - self.width as f64 / 2.0) / self.zoom) + self.offset.0;
+					let new_y = ((y as f64 - self.height as f64 / 2.0) / self.zoom) + self.offset.1;
+	
+					let result = fractal(new_x, new_y, self.max_iterations);
+					if result as usize == self.max_iterations {
+						row[x] = 0xFFFFFFFF;
+					}
+					else {
+						row[x] = colorizer(f64::abs(result), self.max_iterations);
+					}
 				}
-				else {
-					self.buffer[index] = colorizer(f64::abs(result), self.max_iterations);
-				}
-			}
-		}
+			});
 	}
 }
