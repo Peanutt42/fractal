@@ -1,4 +1,3 @@
-
 pub fn julia(x: f64, y: f64, max_iterations: usize) -> f64 {
     const REAL: f64 = -0.8;
     const IMAG: f64 = 0.156;
@@ -36,7 +35,7 @@ pub fn mandelbrot(x: f64, y: f64, max_iterations: usize) -> f64 {
     iterations as f64 - f64::log2(f64::max(1.0, f64::log2(mod_)))
 }
 
-pub fn burningShip(x: f64, y: f64, max_iterations: usize) -> f64 {
+pub fn burning_ship(x: f64, y: f64, max_iterations: usize) -> f64 {
     let real = x;
     let imag = y;
 

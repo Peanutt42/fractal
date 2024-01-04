@@ -31,10 +31,10 @@ impl Visualizer {
 		self.buffer.resize(width * height, 0u32);
 	}
 
-	pub fn zoom(&mut self, x: usize, y: usize, amount: f64) {
+	pub fn zoom(&mut self, x: f64, y: f64, amount: f64) {
 		let factor = 1.0 + (amount * 0.1);
-		self.offset.0 -= (x as f64 - (self.width as f64 / 2.0)) / self.zoom * ((1.0 / factor) - 1.0);
-		self.offset.1 -= (y as f64 - (self.height as f64 / 2.0)) / self.zoom * ((1.0 / factor) - 1.0);
+		self.offset.0 -= (x - (self.width as f64 / 2.0)) / self.zoom * ((1.0 / factor) - 1.0);
+		self.offset.1 -= (y - (self.height as f64 / 2.0)) / self.zoom * ((1.0 / factor) - 1.0);
 		self.zoom *= factor;
 	}
 
