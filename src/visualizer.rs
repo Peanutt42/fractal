@@ -17,7 +17,7 @@ impl Visualizer {
 			height,
 			max_iterations,
 			offset: (0.0, 0.0),
-			zoom: 1.0
+			zoom: 500.0
 		}
 	}
 

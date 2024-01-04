@@ -47,17 +47,22 @@ fn main() {
 
 		window.get_keys_pressed(minifb::KeyRepeat::No).iter().for_each(|key| {
 			match key {
+				// fractals
 				Key::Key1 => fractal = mandelbrot,
 				Key::Key2 => fractal = julia,
 				Key::Key3 => fractal = burning_ship,
 				Key::Key4 => fractal = tricorn,
+				// colorizers
 				Key::Key7 => colorizer = greyscale,
 				Key::Key8 => colorizer = blue,
 				Key::Key9 => colorizer = colorful,
+				// others
+				Key::A => visualizer.max_iterations += 50,
+				Key::D => visualizer.max_iterations -= 50,
 				_ => {}
 			}
 		});
-
+		
 		visualizer.update(fractal, colorizer);		
 
 		window.update_with_buffer(&visualizer.buffer, visualizer.width, visualizer.height)
