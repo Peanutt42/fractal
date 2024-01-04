@@ -24,7 +24,7 @@ pub fn mandelbrot(x: f64, y: f64, max_iterations: usize) -> f64 {
     let mut  r = 0.0;
     let mut  i = 0.0;
     let mut mod_ = r * r + i * i;
-    while (iterations < max_iterations && mod_ < 4.0) {
+    while iterations < max_iterations && mod_ < 4.0 {
         let temp = r * r - i * i + real;
         i = 2.0 * r * i + imag;
         r = temp;
@@ -44,7 +44,7 @@ pub fn burning_ship(x: f64, y: f64, max_iterations: usize) -> f64 {
     let mut i = 0.0;
     let mut mod_ = r * r + i * i;
 
-    while (iterations < max_iterations && mod_ < 4.0) {
+    while iterations < max_iterations && mod_ < 4.0 {
         let temp = f64::abs(r * r - i * i) + real;
         i = 2.0 * f64::abs(r * i) + imag;
         r = temp;
@@ -64,7 +64,7 @@ pub fn tricorn(x: f64, y: f64, max_iterations: usize) -> f64 {
     let mut i = 0.0;
     let mut mod_ = r * r + i * i;
 
-    while (iterations < max_iterations && mod_ < 4.0) {
+    while iterations < max_iterations && mod_ < 4.0 {
         let temp = r * r - i * i + real;
         i = -2.0 * r * i + imag;
         r = temp;

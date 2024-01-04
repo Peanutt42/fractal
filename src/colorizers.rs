@@ -40,8 +40,8 @@ fn from_hsl(mut hue: f64, mut saturation: f64, mut lightness: f64) -> u32 {
 
 	// If the saturation is close to zero, the color is a shade of gray
 	if saturation < 0.00001 {
-		let grayValue = (lightness * 255.0) as u8;
-		return from_u8_rgb(grayValue, grayValue, grayValue);
+		let gray_value = (lightness * 255.0) as u8;
+		return from_u8_rgb(gray_value, gray_value, gray_value);
 	}
 
 	let q = if lightness < 0.5 { lightness * (1.0 + saturation) } else { lightness + saturation - lightness * saturation };
