@@ -42,7 +42,17 @@ fn main() {
 
 		let (_, mouse_wheel) = window.get_scroll_wheel().unwrap_or((0.0, 0.0));
 		if mouse_wheel != 0.0 {															// mouse_wheel on a physical wheel is +-12
-			visualizer.zoom(new_mouse_pos.0 as f64, new_mouse_pos.1 as f64, mouse_wheel as f64 / 12.0);
+			const SCROLL_SCALE: f64 = 
+			if cfg!(target_os = "windows") {
+				12.0
+			}
+			else if cfg!(target_os = "linux") {
+				2.0
+			}
+			else {
+				1.0 // not test
+			};
+			visualizer.zoom(new_mouse_pos.0 as f64, new_mouse_pos.1 as f64, mouse_wheel as f64 / SCROLL_SCALE);
 		}
 
 		window.get_keys_pressed(minifb::KeyRepeat::No).iter().for_each(|key| {
